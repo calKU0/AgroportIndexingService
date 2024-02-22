@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "agroport-396912",
+  "private_key_id": "fbe6fe8554f5ffaa3a175814d94512fab7977e75",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxagYVnhsIN2/7\nIv8DO3qE9oQeNiqk5UxCe4/o5at1dyJNamnviamPkv3bxHjDgbj0niyE1YhszBxw\n2nwiks4pPNdGhOoCvc04DdeGdieW98codDavLCNP+edVhsQKsr8WKZ4L3bp9FCoW\nSUOt1lx9FdSpuhKmp19/U0Igi8KwxCt/Wd9+ljl91rLWgO8r8j5X2zrKppQAKmXu\nR5xu9QqTsTQL6OK4aTt30a+Qu3eNOLz0UkG4gPiMEWG5hYUthdgUioAs2slRvgTB\nH0tdHQlDlCLbwNSQK7tr5tyG8z9K9VYJr4DUSPC8RXw2cdPpyl6TRjoYawmjJ8EO\npbh1soNLAgMBAAECggEAGCdMFBiwq3SzXSh4OXNujGLsvRmOGAxTo+AjSTIuHqbi\nglGmLINnFJyOzSMOzJHWTA9WFkY6oD1Fnfj7hNAhxdbPpCfSSB9DrN74ObPPqKur\nxI6AfLwbQ/ciOdryyQC+0oCbUMLrcb3otkdb3HMzp5/s56flLs/Yni1dR7BfXXs3\n+qExplD7V6Cu7L0dmpTJAFyVMWImVY4nPDhLp0AX5wvKfPqjcMB/IuS1cus1Eufn\nC/yCjzetpuUD6eZog7J0NwEgMcjhUeulIzxit+FFr2n5ZGO6EJ+NE4oAIGdt/oVT\nSdz0MRknT5qnIlM3ua88VrUwh1/AXJZuW3WgNeIFwQKBgQDqT3PA4GhU9sI3w8G9\n5xH2mpfqvSA5xuSAK5thjMEiVs/nygmrsTZ4e7n/pUgFkO6zLKGNk0SgT3xwUKuG\nkwUe7CNr/QTimyWWHwjz3wRWShVu+UWb8O2bkGJoyZ9ZbfGy/4FwAI/qnC6UYg+j\n17fOy96TaUo4aZBIb74awiGgqwKBgQDB1kd0QjGOUbsvUGoZ5Mtdu3oR5bMyVzar\nBGGnSR5sCRcUg+hnS8sP72fQcrSfza83n6E2pQraycQKrh1Nwwk5MoCF4u3dmr77\nqHEf7XXMVAcyQM7MMb7nKM/CWo3CIjNgWC/JIjlNy6Pn4zxmHqGUzTlJnCyApeGk\nRiazPn7n4QKBgHsqvLw8uls/QySxIFzE5GpvJUBdnl0Asgi1433J0ZRNcghz6dV4\n2BtJXqKFrXBPmUpSQbH8IezrG4ymuyOIkP6KPqx7WmAMEhvxwHEBYHRDiTTGj9LD\nOQO3SCOxKLSH2K+xI8dOZFh9NPcG/RWxRYvNGvj+NeelhhStuI60UZz1AoGAETzA\n9fG8/m7+OmLoTI0wGJHHdTf8C4n97o9hL8Ms1WapisWAMU9oK26ayMqqjVt5LXUg\nnP9oS7SNnnWFXZjuhQucqktX49ETEsYT6Ubwps8CJNHmkfoKg/v5Hct3t7/a2cJ9\n3WERv31QghqPEHXA4L6vTYB55KbbvgQPBPmVx4ECgYEAomwirVeZCnOpOPLTnTr2\nXM31aBljVtizjF0eh9FkyG6jyhV25sH6nMuMaAjlMd4xgj1x3aUNFv7f2DNlXagS\n8OmJddB/3g1NnsqzoxpiiR4MKG80RlXaKmw4eyS09BjMZJENiuZ6bYqgzz87xgx/\nOmWEHirUeqc7ZhcLqQ8ABSw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "agroport-indeksacja@agroport-396912.iam.gserviceaccount.com",
+  "client_id": "102552580659954402352",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/agroport-indeksacja%40agroport-396912.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
