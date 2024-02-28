@@ -20,8 +20,8 @@ namespace AgroportIndexingService
         private readonly string jsonKey = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "agroportKey.json");
         private readonly string urlsFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "urls.txt");
         private readonly string indexedFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "indexed.txt");
-        private readonly int minuteTimer = Convert.ToInt16(ConfigurationManager.AppSettings["minuteTimer"]);
-        private readonly int startFromUrl = Convert.ToInt16(ConfigurationManager.AppSettings["startFromUrl"]);
+        private readonly int startHour = Convert.ToInt16(ConfigurationManager.AppSettings["startHour"]);
+        private readonly int startFromUrl = Convert.ToInt32(ConfigurationManager.AppSettings["startFromUrl"]);
         private IndexingService service;
 
         public AgroportIndexingService()
@@ -56,7 +56,7 @@ namespace AgroportIndexingService
             service = new IndexingService(baseClient);
 
             timer = new Timer();
-            timer.Interval = 60000 * minuteTimer;
+            timer.Interval = 300000; // 5min
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
@@ -73,53 +73,59 @@ namespace AgroportIndexingService
 
         private async void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var urls = await ReadUrlsFromFileAsync(urlsFile);
-            int i = startFromUrl;
-            while (true)
+            short currentHour = Convert.ToInt16(DateTime.Now.Hour.ToString());
+            short currentMinute = Convert.ToInt16(DateTime.Now.Minute.ToString());
+
+            if (currentHour == startHour && currentMinute <= 15)
             {
-                var cleanUrl = urls[i].Trim();
-
-                var content = new UrlNotification
+                var urls = await ReadUrlsFromFileAsync(urlsFile);
+                int i = startFromUrl;
+                while (true)
                 {
-                    Url = cleanUrl,
-                    Type = "URL_UPDATED"
-                };
+                    var cleanUrl = urls[i].Trim();
 
-                var request = service.UrlNotifications.Publish(content);
-                try
-                {
-                    var response = await request.ExecuteAsync();
-
-                    if (response.UrlNotificationMetadata != null)
+                    var content = new UrlNotification
                     {
-                        await WriteIndexedUrlToFileAsync(indexedFile, urls[i]);
-                        urls.RemoveAt(i);
+                        Url = cleanUrl,
+                        Type = "URL_UPDATED"
+                    };
 
-                        SaveLog($"Processed URL: {cleanUrl}", LogEventLevel.Information);
+                    var request = service.UrlNotifications.Publish(content);
+                    try
+                    {
+                        var response = await request.ExecuteAsync();
+
+                        if (response.UrlNotificationMetadata != null)
+                        {
+                            await WriteIndexedUrlToFileAsync(indexedFile, urls[i]);
+                            urls.RemoveAt(i);
+
+                            SaveLog($"Processed URL: {cleanUrl}", LogEventLevel.Information);
+                        }
+                    }
+                    catch (Google.GoogleApiException)
+                    {
+                        SaveLog("Exceeded limit quota! (200 urls per day)", LogEventLevel.Error);
+                        i++;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        SaveLog($"An error occurred: {ex}", LogEventLevel.Error);
+                        i++;
+                        break;
                     }
                 }
-                catch (Google.GoogleApiException)
-                {
-                    SaveLog("Exceeded limit quota! (200 urls per day)", LogEventLevel.Error);
-                    i++;
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    SaveLog($"An error occurred: {ex}", LogEventLevel.Error);
-                    i++;
-                    break;
-                }
-            }
-            await WriteUrlsToFileAsync(urlsFile, urls);
-
-            if (urls.Count == 0)
-            {
-                urls = await ReadUrlsFromFileAsync(indexedFile);
                 await WriteUrlsToFileAsync(urlsFile, urls);
-                File.WriteAllText(indexedFile, string.Empty);
 
-                SaveLog("urls.txt is empty. Copied content from indexed.txt to urls.txt and cleared indexed.txt.", LogEventLevel.Information);
+                if (urls.Count == 0)
+                {
+                    urls = await ReadUrlsFromFileAsync(indexedFile);
+                    await WriteUrlsToFileAsync(urlsFile, urls);
+                    File.WriteAllText(indexedFile, string.Empty);
+
+                    SaveLog("urls.txt is empty. Copied content from indexed.txt to urls.txt and cleared indexed.txt.", LogEventLevel.Information);
+                }
             }
         }
 
@@ -158,7 +164,7 @@ namespace AgroportIndexingService
 
         private void SaveLog(string logText, LogEventLevel logLevel)
         {
-            Log.Write(logLevel, "{Timestamp:yyyy-MM-dd HH:mm:ss} {Message}", DateTime.Now, logText);
+            Log.Write(logLevel, "{Message}", logText);
         }
     }
 }
